@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моніторинг КРМ | PWA</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-theme">
+
+    <header>
+        <div>
+            <h1>Моніторинг КРМ (Експертний рівень)</h1>
+            <p id="last-update" aria-live="polite">Останнє оновлення: --:--:--</p>
+        </div>
+        <div class="controls">
+            <button id="ws-btn" onclick="toggleConnection()">WS: З'єднання...</button>
+            <button class="outline" onclick="requestNotificationPermission()">Увімкнути сповіщення</button>
+            <button class="outline" onclick="toggleTheme()">Змінити тему</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard" aria-label="Показники датчиків">
+            <div class="card-modern">
+                <div class="card-title">Реактивна потужність (кВАр)</div>
+                <div class="card-value" id="val-q">0</div>
+                <div class="status-row">
+                    <span class="status-badge" id="status-q">Очікування</span>
+                    <span class="trend" id="trend-q">➡️</span>
+                </div>
+            </div>
+            
+            <div class="card-modern">
+                <div class="card-title">Коефіцієнт потужності (cos φ)</div>
+                <div class="card-value" id="val-cos">0.00</div>
+                <div class="status-row">
+                    <span class="status-badge" id="status-cos">Очікування</span>
+                    <span class="trend" id="trend-cos">➡️</span>
+                </div>
+            </div>
+
+            <div class="card-modern">
+                <div class="card-title">Напруга мережі (В)</div>
+                <div class="card-value" id="val-u">0</div>
+                <div class="status-row">
+                    <span class="status-badge" id="status-u">Очікування</span>
+                    <span class="trend" id="trend-u">➡️</span>
+                </div>
+            </div>
+
+            <div class="card-modern">
+                <div class="card-title">Температура (°C)</div>
+                <div class="card-value" id="val-temp">0</div>
+                <div class="status-row">
+                    <span class="status-badge" id="status-temp">Очікування</span>
+                    <span class="trend" id="trend-temp">➡️</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <canvas id="mainChart"></canvas>
+        </section>
+
+        <section class="dashboard">
+            <div class="card-modern" style="grid-column: 1 / -1;">
+                <div class="card-title">Стан контакторів (Увімкнено: <span id="val-steps">0</span>/12)</div>
+                <div class="contactors-grid" id="contactors-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
